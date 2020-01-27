@@ -1,0 +1,42 @@
+import java.util.ArrayList;
+public class Billboard
+{
+    private ArrayList<Musician> top10 = new ArrayList<Musician>();
+
+    public void add(Musician artist) {
+        if(!artist.getIsPlatinum()) {
+            System.out.println("Sorry, "+artist.getName()+" does not qualify for Top 10");
+        }
+        else if(top10.size()<10 && artist.getIsPlatinum())
+            top10.add(artist);
+        else if (top10.size()==10)
+            replace(artist);
+        else
+            System.out.println("Sorry, "+artist.getName()+" does not qualify for Top 10");
+    }
+    
+    private void replace(Musician artist) {
+        int index = 0;
+        for(int i = 1; i < top10.size(); i++) {
+            if(top10.get(i).getWeeksInTop40() < top10.get(index).getWeeksInTop40())
+                index = i;
+        }
+        if(artist.getWeeksInTop40() > top10.get(index).getWeeksInTop40()) {
+            Musician old = top10.set(index, artist);
+            System.out.println("The musician "+old.getName()+" has been replaced by "+artist.getName()+".");
+        }
+        else
+            System.out.println("Sorry, "+artist.getName()+" has less weeks in the Top 40 than the other musicians.");
+    }
+    
+ 
+ 
+ 
+ 
+ 
+    //Don't make alterations to this method!
+    public void printTop10()
+    {
+        System.out.println(top10);
+    }
+}
